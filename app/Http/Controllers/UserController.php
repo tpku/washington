@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,7 @@ class UserController extends Controller
 
     public function authenticate(Request $request)
     {
-        if(Auth::check()) {
+        if (Auth::check()) {
             return redirect('/');
         }
 
@@ -71,7 +72,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $credentials = $request->validate([
+            'name' => ['required'],
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        User::create($credentials);
     }
 
     /**

@@ -1,4 +1,4 @@
-<form method="post" action="/user/register">
+<form method="post" action="/user/">
     @csrf
     <div>
         <label for="name">Name</label>
