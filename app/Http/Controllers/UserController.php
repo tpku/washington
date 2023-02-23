@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -78,7 +79,10 @@ class UserController extends Controller
             'password' => ['required'],
         ]);
 
+        $credentials['password'] = Hash::make($credentials['password']);
+
         User::create($credentials);
+        return redirect('/login');
     }
 
     /**
