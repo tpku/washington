@@ -1,4 +1,4 @@
-<form method="post" action="/user/login">
+<form method="post" action="">
     @csrf
     <div>
         <label for="email">Email</label>
