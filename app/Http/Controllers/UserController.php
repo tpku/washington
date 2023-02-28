@@ -55,7 +55,7 @@ class UserController extends Controller
     public function settings()
     {
         $user = Auth()->user();
-        return view('user.settings', ["name" => $user->name, "email" => $user->email]);
+        return view('user.settings', ["id" => $user->id, "name" => $user->name, "email" => $user->email]);
     }
 
     /**
@@ -113,7 +113,35 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $credentials = $request->validate([
+            'name' => ['required'],
+            'email' => ['required', 'email'],
+            'new_password' => ['required', 'confirmed'],
+            'password' => ['required'],
+        ]);
+
+        if (!Auth::attempt($credentials)) {
+            return back()->withErrors([
+                'password' => 'Password does not match.',
+            ])->onlyInput('password');
+        }
+
+        $user = Auth()->user();
+        $user->name = $credentials["name"];
+        $user->email = $credentials["email"];
+        $user->password = Hash::make($credentials["new_password"]);
+
+        $user->update([
+            'name' => $credentials["name"],
+            'email' => $credentials["email"],
+            'password' => Hash::make($credentials["new_password"]),
+            'updated_at' => now()
+        ]);
+
+        return back();
+
+        // print_r($credentials);
     }
 
     /**

@@ -11,24 +11,24 @@
     </head>
     <body>
         
-        <form method="post" action="/user/">
+        <form method="post" action="/user/{{ $id }}">
             @csrf
             @method('PATCH')
             <div>
                 <label for="name">Name</label>
-                <input name="name" id="name" type="name" placeholder="{{ $name  }}"/>
+                <input name="name" id="name" type="name" value="{{ $name  }}"/>
             </div>
             <div>
                 <label for="email">Email</label>
-                <input name="email" id="email" type="email" placeholder="{{ $email }}"/>
+                <input name="email" id="email" type="email" value="{{ $email }}"/>
             </div>
             <div>
-                <label for="new-password">New password</label>
-                <input name="new-password" id="new-password" type="password" />
+                <label for="new_password">New password</label>
+                <input name="new_password" id="new_password" type="password" />
             </div>
             <div>
-                <label for="repeat-password">Repeat password</label>
-                <input name="repeat-password" id="repeat-password" type="password" />
+                <label for="new_password_confirmation">Confirm password</label>
+                <input name="new_password_confirmation" id="new_password_confirmation" type="password" />
             </div>
             <div>
                 <label for="password">Password</label>
@@ -39,3 +39,13 @@
         <a href="/">Back</a>
     </body>
     </html>
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
