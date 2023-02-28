@@ -10,14 +10,16 @@
 
     </head>
     <body>
-        
+
+
+        @isset($workouts)
         <ul>
-            <li>Armar</li>
-            <li>Ben</li>
-            <li>Rygg</li>
-            <li>Bröst</li>
+            @foreach ($workouts as $workout)
+                <li><a href="workout/{{$workout->id}}">{{$workout->title}} | {{$workout->date}} </a></li>
+            @endforeach
         </ul>
-        
+        @endisset
+
     </body>
     </html>
 

@@ -13,7 +13,11 @@ class WorkoutController extends Controller
      */
     public function index()
     {
-        return view('workout.archive');
+        $user = Auth()->user();
+
+        // $workouts = Workout::where('user_id', $user->id);
+
+        return view('workout.archive',["workouts"=>$user->workouts]);
     }
 
     /**
