@@ -128,20 +128,11 @@ class UserController extends Controller
         }
 
         $user = Auth()->user();
-        $user->name = $credentials["name"];
-        $user->email = $credentials["email"];
-        $user->password = Hash::make($credentials["new_password"]);
 
-        $user->update([
-            'name' => $credentials["name"],
-            'email' => $credentials["email"],
-            'password' => Hash::make($credentials["new_password"]),
-            'updated_at' => now()
-        ]);
+        $credentials['password'] = Hash::make($credentials['new_password']);
+        $user->update($credentials);
 
         return back();
-
-        // print_r($credentials);
     }
 
     /**
