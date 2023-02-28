@@ -86,7 +86,7 @@ class UserController extends Controller
             'password' => ['required'],
         ]);
 
-        $credentials['password'] = Hash::make($credentials['password']);
+        $credentials['password'] = Hash::make($credentials['password'],[]);
 
         User::create($credentials);
         return redirect('/login');
@@ -117,20 +117,22 @@ class UserController extends Controller
         $credentials = $request->validate([
             'name' => ['required'],
             'email' => ['required', 'email'],
-            'new_password' => ['required', 'confirmed'],
+            'new_password' => ['required','confirmed'],
             'password' => ['required'],
         ]);
 
         if (!Auth::attempt($credentials)) {
             return back()->withErrors([
-                'password' => 'Password does not match.',
+                'password' => 'Wrong password',
             ])->onlyInput('password');
         }
 
-        $user = Auth()->user();
+        $user = User::findOrFail($id);
 
-        $credentials['password'] = Hash::make($credentials['new_password']);
-        $user->update($credentials);
+        $user->name = $credentials['name'];
+        $user->email = $credentials['email'];
+        $user->password = Hash::make($credentials['new_password'],[]);
+        $user->save();
 
         return back();
     }
