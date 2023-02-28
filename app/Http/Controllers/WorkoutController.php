@@ -17,7 +17,7 @@ class WorkoutController extends Controller
 
         // $workouts = Workout::where('user_id', $user->id);
 
-        return view('workout.archive',["workouts"=>$user->workouts]);
+        return view('workout.archive', ["workouts" => $user->workouts]);
     }
 
     /**
@@ -41,7 +41,8 @@ class WorkoutController extends Controller
      */
     public function show(string $id)
     {
-        return view('workout.single');
+        $workout = Workout::findOrFail($id);
+        return view('workout.single', ["workout" => $workout]);
     }
 
     /**
@@ -49,7 +50,15 @@ class WorkoutController extends Controller
      */
     public function edit(string $id)
     {
-        return view('workout.edit');
+        $user = Auth()->user();
+        $userWorkouts = $user->workouts;
+
+        foreach ($userWorkouts as $workout) {
+            if ($workout->id == $id) {
+
+                return view('workout.edit', ["id" => $user->id]);
+            }
+        }
     }
 
     /**

@@ -11,6 +11,7 @@
     </head>
     <body>
         
+        <a href="/workout/{{ $workout->id }}/edit">Edit</a>
 
     </body>
     </html>

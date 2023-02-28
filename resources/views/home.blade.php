@@ -12,7 +12,8 @@
         <h1>Home</h1>
         <nav>
             <ul>
-                <li><a href="logout">logout</a></li>
+                <li><a href="/workout">Your Workouts</a></li>
+                <li><a href="/logout">logout</a></li>
                 <li><a href="/settings">settings</a></li>
             </ul>
         </nav>
