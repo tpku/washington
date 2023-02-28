@@ -51,14 +51,18 @@ class WorkoutController extends Controller
     public function edit(string $id)
     {
         $user = Auth()->user();
+
         $userWorkouts = $user->workouts;
 
         foreach ($userWorkouts as $workout) {
             if ($workout->id == $id) {
-
-                return view('workout.edit', ["id" => $user->id]);
+                return view('workout.edit', ["workout" => $workout]);
             }
         }
+
+        return redirect('/')->withErrors([
+            'access' => 'Access denied',
+        ]);
     }
 
     /**
@@ -67,6 +71,8 @@ class WorkoutController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
+        // print_r($request->input());
     }
 
     /**

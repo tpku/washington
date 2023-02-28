@@ -15,7 +15,7 @@
         @isset($workouts)
         <ul>
             @foreach ($workouts as $workout)
-                <li><a href="workout/{{$workout->id}}">{{$workout->title}} | {{$workout->date}} </a></li>
+                <li><a href="workout/{{$workout->id}}"> {{$workout->title}} | {{$workout->date}} </a></li>
             @endforeach
         </ul>
         @endisset
