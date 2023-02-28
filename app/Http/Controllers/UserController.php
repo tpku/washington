@@ -52,6 +52,12 @@ class UserController extends Controller
         return redirect('/');
     }
 
+    public function settings()
+    {
+        $user = Auth()->user();
+        return view('user.settings', ["name" => $user->name, "email" => $user->email]);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -71,6 +77,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
         $credentials = $request->validate([

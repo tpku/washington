@@ -9,11 +9,12 @@
 
     </head>
     <body>
+        <h1>Home</h1>
         <nav>
             <ul>
                 <li><a href="logout">logout</a></li>
+                <li><a href="/settings">settings</a></li>
             </ul>
         </nav>
-        <h1>Home</h1>
     </body>
 </html>

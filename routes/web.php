@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('home');
 })->middleware('auth');
 Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
+Route::get('/settings', [UserController::class, 'settings'])->middleware('auth');
 
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [UserController::class, 'authenticate'])->name('authenticate')->middleware('guest');
