@@ -119,5 +119,22 @@ class WorkoutController extends Controller
     public function destroy(string $id)
     {
         //
+        $workout = Workout::find($id);
+
+        $user = Auth()->user();
+
+        if($workout->user_id == $user->id){
+            $exercises = $workout->exercises;
+            foreach($exercises as $exercise) {
+                $exercise->delete();
+            }
+
+            $workout->delete();
+            return redirect('/workout');
+        }
+
+        return redirect()->back()->withErrors([
+            'access' => 'Access denied',
+        ]);
     }
 }

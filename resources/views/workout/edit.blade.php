@@ -58,6 +58,12 @@
                         </div>
                         <button type="submit">update</button>
                     </form>
+
+                    <form method="post" action="/exercise/{{ $exercise->id }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">delete exercise</button>
+                    </form>
                 </li>
                 @endforeach
             </ul>
@@ -73,6 +79,12 @@
             <input type="submit" value="add exercise">
         </form>
 
+        <form method="post" action="/workout/{{ $workout->id }}">
+            @csrf
+            @method('DELETE')
+            <button type="submit">delete workout</button>
+        </form>
+
 
 
         @if ($errors->any())
@@ -84,3 +96,6 @@
                 </ul>
             </div>
         @endif
+
+        <a href="/workout/{{$workout->id}}">Back</a>
+

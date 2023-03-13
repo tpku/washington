@@ -28,5 +28,5 @@ Route::get('/register', [UserController::class, 'register'])->name('register')->
 
 
 Route::resource('user', UserController::class);
-Route::resource('workout', WorkoutController::class);
-Route::resource('exercise', ExerciseController::class);
+Route::resource('workout', WorkoutController::class)->middleware('auth');
+Route::resource('exercise', ExerciseController::class)->middleware('auth');

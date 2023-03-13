@@ -14,6 +14,8 @@
         <a href="/workout/{{ $workout->id }}/edit">Edit</a>
         <h1>{{$workout->title}}</h1>
         <h2>{{$workout->date}}</h2>
+        <h3>{{$workout->category}}</h3>
+        <p>{{$workout->description}}</p>
 
         @isset($exercises)
         <ul>
@@ -22,6 +24,8 @@
             @endforeach
         </ul>
         @endisset
+
+        <a href="/workout">Back</a>
     </body>
     </html>
 

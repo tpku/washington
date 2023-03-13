@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exercise;
+use App\Models\Workout;
 use Illuminate\Http\Request;
 
 class ExerciseController extends Controller
@@ -97,6 +98,17 @@ class ExerciseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = Auth()->user();
+
+        $exercise = Exercise::find($id);
+        $workout = Workout::find($exercise->workout_id);
+
+        if($workout->user_id == $user->id){
+            $exercise->delete();
+            return redirect()->back();
+        }
+
+        return redirect()->back()->withErrors(['access'=> 'Access denied']);
+
     }
 }

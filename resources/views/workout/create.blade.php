@@ -4,7 +4,7 @@
 
     <div>
         <label for="title">Title</label>
-        <input name="title" id="title" type="name"/>
+        <input name="title" id="title" type="name" />
     </div>
     <div>
         <label for="description">Description</label>
@@ -34,3 +34,14 @@
 
     <button type="submit">Add Workout</button>
 </form>
+
+
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
