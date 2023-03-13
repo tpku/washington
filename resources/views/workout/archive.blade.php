@@ -11,6 +11,7 @@
     </head>
     <body>
 
+        <a href="workout/create">add workout</a>
 
         @isset($workouts)
         <ul>

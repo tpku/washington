@@ -35,6 +35,25 @@ class WorkoutController extends Controller
     public function store(Request $request)
     {
         //
+        $user = Auth()->user();
+        $credentials = $request->validate([
+            'title' => ['required'],
+            'description' => ['required'],
+            'category' => ['required'],
+            'date' => ['required'],
+        ]);
+
+        $workout = new Workout([
+            'user_id' => Auth::id(),
+            'title' => $credentials['title'],
+            'description' => $credentials['description'],
+            'category' => $credentials['category'],
+            'date' => $credentials['date'],
+        ]);
+
+        $workout->save();
+
+        return redirect('/workout/'.$workout->id);
     }
 
     /**
