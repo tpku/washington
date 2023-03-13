@@ -10,9 +10,18 @@
 
     </head>
     <body>
-        
-        <a href="/workout/{{ $workout->id }}/edit">Edit</a>
 
+        <a href="/workout/{{ $workout->id }}/edit">Edit</a>
+        <h1>{{$workout->title}}</h1>
+        <h2>{{$workout->date}}</h2>
+
+        @isset($exercises)
+        <ul>
+            @foreach ($exercises as $exercise)
+                <li>{{$exercise->title}} | {{$exercise->duration}} {{$exercise->unit}}</li>
+            @endforeach
+        </ul>
+        @endisset
     </body>
     </html>
 

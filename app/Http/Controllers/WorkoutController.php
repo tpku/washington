@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Exercise;
 use Illuminate\Http\Request;
 use App\Models\Workout;
 use Illuminate\Support\Facades\Auth;
@@ -41,8 +42,11 @@ class WorkoutController extends Controller
      */
     public function show(string $id)
     {
+        $user = Auth()->user();
         $workout = Workout::findOrFail($id);
-        return view('workout.single', ["workout" => $workout]);
+        $exercises = $workout->exercises;
+        // $exercises = Exercise::where("workout_id", $workout->id);
+        return view('workout.single', ["workout" => $workout,"exercises"=>$exercises]);
     }
 
     /**
@@ -56,7 +60,8 @@ class WorkoutController extends Controller
 
         foreach ($userWorkouts as $workout) {
             if ($workout->id == $id) {
-                return view('workout.edit', ["workout" => $workout]);
+                $exercises = $workout->exercises;
+                return view('workout.edit', ["workout" => $workout,"exercises"=>$exercises]);
             }
         }
 
@@ -71,8 +76,22 @@ class WorkoutController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $credentials = $request->validate([
+            'title' => ['required'],
+            'description' => ['required'],
+            'category' => ['required'],
+            'date' => ['required'],
+        ]);
 
         // print_r($request->input());
+        $workout = Workout::find($id);
+        $workout->title = $credentials['title'];
+        $workout->description = $credentials['description'];
+        $workout->category = $credentials['category'];
+        $workout->date = $credentials['date'];
+        $workout->save();
+
+        return redirect()->back();
     }
 
     /**
