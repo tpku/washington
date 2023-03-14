@@ -111,5 +111,12 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+        $user = Auth()->User();
+        if($user->id == $id)
+        {
+            $modelUser = User::find($id);
+            $modelUser->delete();
+        }
+        return redirect()->back();
     }
 }

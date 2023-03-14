@@ -10,7 +10,7 @@
 
     </head>
     <body>
-        
+
         <form method="post" action="/user/{{ $id }}">
             @csrf
             @method('PATCH')
@@ -36,16 +36,21 @@
             </div>
             <button type="submit">Save changes</button>
         </form>
+        <form action="/user/{{$id}}" method="post">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Remove my self</button>
+        </form>
         <a href="/">Back</a>
+
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
     </body>
     </html>
-
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
