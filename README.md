@@ -64,3 +64,26 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Code review
+
+1.WorkoutController.php (38) - You have created a variable $user that is never used.
+2.WorkoutController.php (64) - This $user variable is not needed.
+3.WorkoutController.php (17) - Instead of writing "Auth()->user()" you could write "Auth::user()"
+4.WorkoutController.php - Additional comments would be appreciated.
+5.UserController.php (21) - You could use "Auth::check()" instead.
+6.UserController.php (70) - You should probably add some sort of validation for your password such as minimum length.
+7.UserController.php (114) - You should use "Auth::user()" to make to code easier to read.
+8.UserController - Adding more comments to the code will make it easier to read
+9.single.blade.php (16) - "{{ date('Y-m-d', strtotime($workout->date)) }}" would exclude the additional zeroes.
+10.ExerciseController.php (14) - You have created a function "index" that is never used.
+11.ExerciseController.php (22) - This function "create" is empty.
+12.ExerciseController.php - Multiple functions that are created but not used.
+13.create.blade.php (15) - You could have placed these options inside of an array and used a loop to display them.
+14.create.blade.php (30) - The variable name $dt could be more descriptive, such as $dateTime.
+15.edit.blade.php (17) - You could create this using an array and a loop.
+16.login.blade.php (1) - It is not necessary to write "action=""". Either you can fill it in or not use it at all.
+17.archive.blade.php (19) - This "{{$workout->date}}" could be changed to "{{ date('Y-m-d', strtotime($workout->date)) }}" to exclude the "00:00:00"
+18.UserController (87) - Perhaps you should remove the current user from the list of users to make sure that they can keep their current email if they want. currently they will be required to change email.
+19.Washington - Consider using more descriptive names for your files to make it easier to find things.
+20.What is the difference between exercises and workouts? They appear to be the same thing, and the exercises table in the database is empty. I was unable to find a way to add to the exercises table.
