@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Workout;
+use App\Models\Exercise;
 
 
 class ViewsOnAuthTest extends TestCase
@@ -62,33 +63,47 @@ class ViewsOnAuthTest extends TestCase
     public function test_workout(): void
     {
         $user = User::factory()->create();
-        $workout = Workout::factory()->create(['user_id'=>$user->id]);
+        $workout = Workout::factory()->create(['user_id' => $user->id]);
 
         $response = $this->actingAs($user)
             ->withSession(['banned' => false])
-            ->get('/workout/'.$workout->id);
+            ->get('/workout/' . $workout->id);
 
         $response->assertStatus(200);
         $response->assertSeeText('Edit');
         $response->assertSeeText('Back');
-
     }
 
     public function test_workout_edit(): void
     {
         $user = User::factory()->create();
-        $workout = Workout::factory()->create(['user_id'=>$user->id]);
+        $workout = Workout::factory()->create(['user_id' => $user->id]);
 
         $response = $this->actingAs($user)
             ->withSession(['banned' => false])
-            ->get('/workout/'.$workout->id.'/edit');
+            ->get('/workout/' . $workout->id . '/edit');
 
         $response->assertStatus(200);
         $response->assertSeeText('Back');
         $response->assertSeeText('Title');
         $response->assertSeeText('Description');
         $response->assertSeeText('Workout');
+    }
+
+    public function test_workout_edit_add_exercise(): void
+    {
+        $user = User::factory()->create();
+        $workout = Workout::factory()->create(['user_id' => $user->id]);
+        $exercise = Exercise::factory()->create(['workout_id' => $workout->id]);
 
 
+        $response = $this->actingAs($user)
+            ->withSession(['banned' => false])
+            ->post('/exercise/' . $exercise->id);
+
+        $response->assertSeeText('workout_id');
+        $response->assertSeeText('title');
+        $response->assertSeeText('duration');
+        $response->assertSeeText('unit');
     }
 }
