@@ -66,7 +66,7 @@ class UserController extends Controller
     {
         $credentials = $request->validate([
             'name' => ['required'],
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'unique:users'],
             'password' => ['required'],
         ]);
 
@@ -84,7 +84,7 @@ class UserController extends Controller
 
         $credentials = $request->validate([
             'name' => ['required'],
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'unique:users'],
             'new_password' => ['required','confirmed'],
             'password' => ['required'],
         ]);
